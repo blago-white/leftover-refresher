@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class BaseReportAdapter:
+class BaseReportAdapter(metaclass=ABCMeta):
     _raw_data: bytes = None
 
     def __init__(self, raw_data: bytes):
