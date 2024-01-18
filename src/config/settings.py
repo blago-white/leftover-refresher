@@ -48,3 +48,12 @@ class SupplierWebSettings:
         "data_akt",
         "peczat",
     )
+
+    TRACKED_ARTICLES = (
+        'S10399010140',
+        'S10399020140'
+    )
+
+    ARTICLE_CODE_COL_NUMBER = 1
+
+    ARTICLE_LEFTOVER_COL_NUMBER = 3

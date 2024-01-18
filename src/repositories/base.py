@@ -3,20 +3,20 @@ from abc import ABCMeta, abstractmethod
 from src.services.base import BaseWebService
 
 
-class BaseRepository(metaclass=ABCMeta):
+class _BaseRepository(metaclass=ABCMeta):
     _service: BaseWebService
 
     def __init__(self, service: BaseWebService):
         self._service = service
 
-    @abstractmethod
-    async def get(self, *args, **kwargs):
-        pass
 
+class BaseReadOnlyRepository(_BaseRepository, metaclass=ABCMeta):
     @abstractmethod
     async def get_all(self):
         pass
 
+
+class BaseRepository(BaseReadOnlyRepository, metaclass=ABCMeta):
     @abstractmethod
     async def save(self, *args, **kwargs):
         pass
