@@ -1,35 +1,42 @@
 import aiohttp
-import functools
+import http
 
-from src.config.config import SupplierAuthResources, SupplierCredentals
+from src.config.config import SupplierAuthResources
 
-from ._dataclasses import SupplierClienState
-
-
-def _asyncrequest():
-    def wrapper(func):
-        @functools.wraps(func)
-        async def wrapped(*args, **kwargs):
-            async with aiohttp.ClientSession() as session:
-                return await func(*args, **kwargs | {"session": session})
-        return wrapped
-    return wrapper
+from ..states.states import SupplierClienState
+from ..parsers.state import ClientStateHtmlParser
+from ..utils.request.login import get_login_body
 
 
-class SupplierSessionWebServiceMixin:
-    _auth_resources: SupplierAuthResources
-    _client_state: SupplierClienState
+class SupplierStatesWebServiceMixin:
+    _session: aiohttp.ClientSession
+    __client_state: SupplierClienState = None
+
+    async def _set_state(self, state_url: str) -> SupplierClienState:
+        async with self._session.get(state_url) as response:
+            self.__client_state = ClientStateHtmlParser(html=await response.text()).state
 
     @property
-    def session(self):
-        return
+    def _state(self) -> SupplierClienState | None:
+        return self.__client_state
 
-    @_asyncrequest()
-    async def auth(self, session: aiohttp.ClientSession):
-        async with session.post(url=self._auth_resources.loginurl) as _:
-            pass
 
-    @_asyncrequest()
-    async def get_state(self, session: aiohttp.ClientSession):
-        async with session.get(self._auth_resources.loginurl) as response:
-            return await response.text()
+class SupplierAuthWebServiceMixin(SupplierStatesWebServiceMixin):
+    _auth_resources: SupplierAuthResources = None
+    __authenticated = False
+
+    async def _authenticate(self):
+        await self._set_state(state_url=self._auth_resources.loginurl)
+
+        body = get_login_body(
+            state=self._state,
+            credentals=self._auth_resources.credentals
+        )
+
+        async with self._session.post(url=self._auth_resources.loginurl, data=body) as response:
+            if response.status == http.HTTPStatus.OK:
+                self.__authenticated = True
+
+    @property
+    def _authenticated(self) -> bool:
+        return self.__authenticated

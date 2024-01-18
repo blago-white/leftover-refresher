@@ -1,11 +1,14 @@
 from abc import ABCMeta, abstractmethod
 
 
-class BaseWebService(metaclass=ABCMeta):
+class BaseReadOnlyWebService(metaclass=ABCMeta):
     @abstractmethod
-    async def get(self, *args, **kwargs) -> bytes:
+    def get(self, *args, **kwargs) -> bytes:
         pass
 
+
+class BaseWebService(BaseReadOnlyWebService, metaclass=ABCMeta):
     @abstractmethod
     async def post(self, *args, **kwargs) -> bytes:
         pass
+
