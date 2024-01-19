@@ -1,5 +1,25 @@
-from .default import DefaultWebService
+from aiohttp.client import ClientSession
+
+from src.config.config import DealerCredentals
+from src.config.settings import DealerSettings
+from src.services.base import BaseWebService
+from src.services.mixins.api import DealerApiCredentalsMixin, DealerApiMixin
 
 
-class DeallerWebService(DefaultWebService):
-    pass
+class DeallerWebService(DealerApiCredentalsMixin, DealerApiMixin, BaseWebService):
+    def __init__(self, auth_credentals: DealerCredentals, aoihttp_session: ClientSession):
+        self._auth_credentals = auth_credentals
+
+        super().__init__(aoihttp_session=aoihttp_session)
+
+        self._add_auth_headers()
+
+    async def get(self):
+        async with self._session.post(
+            url=DealerSettings.STOCKS_API_URL,
+            data=self._get_leftovers_info_json(),
+        ) as response:
+            return await response.json()
+
+    async def post(self, *args, **kwargs) -> bytes:
+        pass

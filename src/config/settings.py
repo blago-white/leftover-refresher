@@ -1,4 +1,4 @@
-class SupplierWebSettings:
+class SupplierSettings:
     VIEWSTATE_FIELD_NAME = "__VIEWSTATE"
     GENERATOR_FIELD_NAME = "__VIEWSTATEGENERATOR"
     EVENTVALIDATION_FIELD_NAME = "__EVENTVALIDATION"
@@ -60,9 +60,22 @@ class SupplierWebSettings:
     )
 
     ARTICLE_CODE_COL_NUMBER = 1
-
     ARTICLE_LEFTOVER_COL_NUMBER = 3
 
     ARTICLE_LEFTOVER_VALUE_TYPE = int
-
     ARTICLE_CODE_VALUE_TYPE = str
+
+
+class DealerSettings:
+    STOCKS_API_URL = "https://api-seller.ozon.ru/v1/product/info/stocks-by-warehouse/fbs"
+    STOCKS_INFO_DICT_KEY = "result"
+    STOCKS_PRESENT_KEY = "present"
+
+    CLIENT_ID_HEADER = "Client-Id"
+    API_KEY_HEADER = "Api-Key"
+
+    TRACKED_SKUS = [
+        1389650398,
+        1391279102
+    ]
+    SKU_BODY_PARAM = "sku"

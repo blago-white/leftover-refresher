@@ -15,4 +15,5 @@ class SupplierAuthResources:
 
 @dataclass(frozen=True)
 class DealerCredentals:
+    client_id: int
     apikey: str

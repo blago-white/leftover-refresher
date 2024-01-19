@@ -1,9 +1,8 @@
 from abc import ABCMeta, abstractmethod
 
-from ..transfer.report import Report
-
 from ..adapters.base import BaseReportAdapter
 from ..filters.base import BaseReportFilter
+from ..transfer.report import Report
 
 
 class BaseReportBuilder(metaclass=ABCMeta):
@@ -26,3 +25,11 @@ class BaseReportBuilder(metaclass=ABCMeta):
             return self._filter(report).result
 
         return report
+
+
+class DefaultReportBuilder(BaseReportBuilder):
+    @property
+    def report(self) -> Report:
+        report = self._adapter(self._data).data
+
+        return self._get_filtered(report=report)

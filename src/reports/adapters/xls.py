@@ -2,7 +2,7 @@ import openpyxl
 from openpyxl.worksheet.worksheet import Worksheet
 
 from src.reports.transfer.report import Report
-from ._utils import utils, sheets
+from ._utils import sheets
 from .base import BaseReportAdapter
 
 
@@ -11,7 +11,7 @@ class XlsReportAdapter(BaseReportAdapter):
     def data(self) -> Report:
         work_sheet = self._get_work_sheet()
 
-        work_sheet_values = utils.extract_values_from_sheet(sheet=work_sheet)
+        work_sheet_values = sheets.extract_values_from_sheet(sheet=work_sheet)
 
         return sheets.rows_to_report(rows=work_sheet_values)
 

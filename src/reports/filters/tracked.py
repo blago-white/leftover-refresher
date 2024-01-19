@@ -1,4 +1,4 @@
-from src.config.settings import SupplierWebSettings
+from src.config.settings import SupplierSettings
 from .base import BaseReportFilter
 from ..transfer.report import Report
 
@@ -17,5 +17,5 @@ class TrackedAtriclesFilter(BaseReportFilter):
         self._result = Report(articles=[
             article
             for article in report.articles
-            if article.article in SupplierWebSettings.TRACKED_ARTICLES
+            if article.article in SupplierSettings.TRACKED_ARTICLES
         ])

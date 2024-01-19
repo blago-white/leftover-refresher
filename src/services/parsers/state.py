@@ -1,7 +1,6 @@
 import bs4
 
-from src.config.settings import SupplierWebSettings
-
+from src.config.settings import SupplierSettings
 from .base import BaseStateParser
 from ..states import states
 
@@ -21,13 +20,13 @@ class ClientStateHtmlParser(BaseStateParser):
         )
 
     def _get_viewstate(self):
-        return self._get_hidden_value(SupplierWebSettings.VIEWSTATE_FIELD_NAME)
+        return self._get_hidden_value(SupplierSettings.VIEWSTATE_FIELD_NAME)
 
     def _get_generator(self):
-        return self._get_hidden_value(SupplierWebSettings.GENERATOR_FIELD_NAME)
+        return self._get_hidden_value(SupplierSettings.GENERATOR_FIELD_NAME)
 
     def _get_eventvalidation(self):
-        return self._get_hidden_value(SupplierWebSettings.EVENTVALIDATION_FIELD_NAME)
+        return self._get_hidden_value(SupplierSettings.EVENTVALIDATION_FIELD_NAME)
 
     def _get_hidden_value(self, tag_id: str):
         return bs4.BeautifulSoup(

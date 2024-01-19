@@ -1,5 +1,5 @@
 from src.config.config import SupplierCredentals
-from src.config.settings import SupplierWebSettings
+from src.config.settings import SupplierSettings
 from src.services.states.states import SupplierClienState
 
 from ._common import get_state_body_fields
@@ -7,7 +7,7 @@ from ._common import get_state_body_fields
 
 def get_login_body(state: SupplierClienState,
                    credentals: SupplierCredentals) -> dict:
-    body = dict.fromkeys(SupplierWebSettings.LOGIN_FORM_FIELDS)
+    body = dict.fromkeys(SupplierSettings.LOGIN_FORM_FIELDS)
 
     body.update(
         get_state_body_fields(state=state) | _get_login_credentals_body_fields(credentals=credentals)
@@ -18,6 +18,6 @@ def get_login_body(state: SupplierClienState,
 
 def _get_login_credentals_body_fields(credentals: SupplierCredentals) -> dict:
     return {
-        SupplierWebSettings.USERNAME_FIELD_NAME: credentals.username,
-        SupplierWebSettings.PASSWORD_FIELD_NAME: credentals.password
+        SupplierSettings.USERNAME_FIELD_NAME: credentals.username,
+        SupplierSettings.PASSWORD_FIELD_NAME: credentals.password
     }
