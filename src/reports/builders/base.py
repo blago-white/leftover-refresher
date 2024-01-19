@@ -1,5 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
+from ..transfer.report import Report
+
 from ..adapters.base import BaseReportAdapter
 from ..filters.base import BaseReportFilter
 
@@ -16,5 +18,11 @@ class BaseReportBuilder(metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def report(self):
+    def report(self) -> Report:
         pass
+
+    def _get_filtered(self, report: Report) -> Report:
+        if self._filter:
+            return self._filter(report).result
+
+        return report

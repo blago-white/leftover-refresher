@@ -3,7 +3,6 @@ from typing import TypeVar
 
 from src.config.settings import SupplierWebSettings
 
-
 ArticleCode = TypeVar("ArticleCode", bound=str)
 LeftOverAmount = TypeVar("LeftOverAmount", bound=int)
 
@@ -20,3 +19,9 @@ class Article:
             )
         except (ValueError, TypeError):
             pass
+
+    def __eq__(self, other):
+        if type(other) is not self.__class__:
+            raise TypeError
+
+        return self.leftover == other.leftover

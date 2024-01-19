@@ -10,5 +10,4 @@ class BaseReportAdapter(metaclass=ABCMeta):
     @property
     @abstractmethod
     def data(self):
-        #  returns, converted, python - friendly data
         pass

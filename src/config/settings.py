@@ -51,7 +51,12 @@ class SupplierWebSettings:
 
     TRACKED_ARTICLES = (
         'S10399010140',
-        'S10399020140'
+        'S10399020140',
+        'S26199201001',
+        'S26199201501',
+        'S50102163000',
+        'S26199201009',
+        'S70299234615'
     )
 
     ARTICLE_CODE_COL_NUMBER = 1

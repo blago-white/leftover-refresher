@@ -20,4 +20,4 @@ class SupplierReportsRepository(BaseReadOnlyRepository):
     async def get_all(self):
         result = await self._service.get()
 
-        return self._builder(data=result, adapter=self._adapter).report
+        return self._builder(data=result, filter_=self._filter, adapter=self._adapter).report

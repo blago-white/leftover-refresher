@@ -1,35 +1,33 @@
 from abc import ABCMeta, abstractmethod
 
-from src.reports.utils import difference
-from ._dataclasses import ReportBuildersPair
+from src.reports.transfer.report import Report, ReportsPair
 from .base import Controller
+from .dataclasses_ import RepositoriesPair
+from .managers.base import BaseRepositoriesManager
 
 
-class BaseArticlesReportsController(Controller, metaclass=ABCMeta):
-    _reports_pair: ReportBuildersPair
+class BaseArticlesController(Controller, metaclass=ABCMeta):
+    _repositories_pair: RepositoriesPair
 
     @abstractmethod
-    def _refresh_reports(self):
-        pass
-
-
-class ArticlesReportsController(BaseArticlesReportsController):
-    def __init__(self, difference_calculator: difference.ReportsDifferenceCalculator):
-        self._reports_pair = None
-
-    async def refresh(self):
-        await self._refresh_reports()
-        self._get_difference()
-        await self._commit_difference()
-
     async def _refresh_reports(self):
-        #  TODO: Updates _reports_pair
         pass
 
-    async def _commit_difference(self):
-        #  TODO: Call save method from the slave
-        pass
 
-    def _get_difference(self):
-        #  TODO: Returns diff between two reports
-        pass
+class ArticlesLeftoversController(BaseArticlesController):
+    _reports_pair: ReportsPair = ReportsPair(slave_report=Report(), master_report=Report())
+
+    def __init__(self, repositories: RepositoriesPair,
+                 repositories_manager_class: BaseRepositoriesManager):
+        self._repositories_pair = repositories
+        self._repositories_manager: BaseRepositoriesManager = repositories_manager_class(self._repositories_pair)
+
+    async def synchronize(self) -> None:
+        await self._refresh_reports()
+        await self._synchronize()
+
+    async def _refresh_reports(self) -> None:
+        self._reports_pair = await self._repositories_manager.get_all()
+
+    async def _synchronize(self) -> None:
+        await self._repositories_pair.slave.save(self._reports_pair.difference)

@@ -14,10 +14,8 @@ class TrackedAtriclesFilter(BaseReportFilter):
         return self._result
 
     def _extract_tracked_atricles(self, report: Report) -> None:
-        result = Report()
-
-        for article in report.articles:
-            if article.article in SupplierWebSettings.TRACKED_ARTICLES:
-                result.add(article=article)
-
-        self._result = result
+        self._result = Report(articles=[
+            article
+            for article in report.articles
+            if article.article in SupplierWebSettings.TRACKED_ARTICLES
+        ])

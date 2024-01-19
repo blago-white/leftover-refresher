@@ -1,10 +1,12 @@
 import bs4
 
 from src.config.settings import SupplierWebSettings
+
+from .base import BaseStateParser
 from ..states import states
 
 
-class ClientStateHtmlParser:
+class ClientStateHtmlParser(BaseStateParser):
     _html: str
 
     def __init__(self, html: str):
