@@ -3,6 +3,8 @@ from src.reports.builders.json import TrackedArticlesJSONReportBuilder
 from src.reports.filters.base import BaseReportFilter
 from src.reports.transfer.report import Report
 from src.services.dealer import DeallerWebService
+
+from ._utils import report_to_update_report
 from .base import BaseRepository
 
 
@@ -24,5 +26,7 @@ class DealerReportsRepository(BaseRepository):
                              filter_=self._filter,
                              adapter=self._adapter).report
 
-    async def save(self, *args, **kwargs):
-        pass
+    async def save(self, report: Report) -> None:
+        await self._service.post(
+            update_report=report_to_update_report(report=report)
+        )

@@ -50,13 +50,7 @@ class SupplierSettings:
     )
 
     TRACKED_ARTICLES = (
-        'S10399010140',
-        'S10399020140',
-        'S26199201001',
-        'S26199201501',
-        'S50102163000',
-        'S26199201009',
-        'S70299234615'
+        "S24499375509"
     )
 
     ARTICLE_CODE_COL_NUMBER = 1
@@ -68,6 +62,8 @@ class SupplierSettings:
 
 class DealerSettings:
     STOCKS_API_URL = "https://api-seller.ozon.ru/v1/product/info/stocks-by-warehouse/fbs"
+    STOCKS_UPDATE_API_URL = "https://api-seller.ozon.ru/v2/products/stocks"
+
     STOCKS_INFO_DICT_KEY = "result"
     STOCKS_PRESENT_KEY = "present"
 
@@ -76,6 +72,17 @@ class DealerSettings:
 
     TRACKED_SKUS = [
         1389650398,
-        1391279102
     ]
+
+    TRACKED_PRODUCTS_IDS = [
+        837206055,
+    ]
+
     SKU_BODY_PARAM = "sku"
+    STOCKS_PARAM = "stocks"
+    OFFER_ID_PARAM = "offer_id"
+    PRODUCT_ID_PARAM = "product_id"
+    NEW_STOCK_PARAM = "stock"
+    WAREHOUSE_PARAM = "warehouse_id"
+
+    WAREHOUSE_ID = 1020001281723000

@@ -5,6 +5,8 @@ from aiohttp.client import ClientSession
 from src.config.config import DealerCredentals
 from src.config.settings import DealerSettings
 
+from ..transfer import UpdateReport
+
 
 class DealerApiMixin:
     @staticmethod
@@ -12,6 +14,21 @@ class DealerApiMixin:
         return json.dumps({
             DealerSettings.SKU_BODY_PARAM: DealerSettings.TRACKED_SKUS
         })
+
+    @staticmethod
+    def _get_update_leftovers_json(update_report: UpdateReport) -> str:
+        stocks = list()
+
+        for update_article in update_report.articles:
+            update_article_dict = {
+                DealerSettings.OFFER_ID_PARAM: update_article.article_id,
+                DealerSettings.NEW_STOCK_PARAM: update_article.leftover,
+                DealerSettings.WAREHOUSE_PARAM: DealerSettings.WAREHOUSE_ID
+            }
+
+            stocks.append(update_article_dict)
+
+        return json.dumps({DealerSettings.STOCKS_PARAM: stocks})
 
 
 class DealerApiCredentalsMixin:

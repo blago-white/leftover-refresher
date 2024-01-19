@@ -2,7 +2,7 @@ import openpyxl
 from openpyxl.worksheet.worksheet import Worksheet
 
 from src.reports.transfer.report import Report
-from ._utils import sheets
+from ._utils import sheets, utils
 from .base import BaseReportAdapter
 
 
