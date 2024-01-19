@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from abc import ABCMeta, abstractmethod
 
 from .article import Article
 

@@ -1,8 +1,6 @@
 from src.config.settings import SupplierWebSettings
-
-from ..transfer.report import Report
-
 from .base import BaseReportFilter
+from ..transfer.report import Report
 
 
 class TrackedAtriclesFilter(BaseReportFilter):

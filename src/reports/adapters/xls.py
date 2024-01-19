@@ -2,8 +2,8 @@ import openpyxl
 from openpyxl.worksheet.worksheet import Worksheet
 
 from src.reports.transfer.report import Report
-from .base import BaseReportAdapter
 from ._utils import utils, sheets
+from .base import BaseReportAdapter
 
 
 class XlsReportAdapter(BaseReportAdapter):

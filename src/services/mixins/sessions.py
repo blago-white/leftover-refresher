@@ -1,10 +1,10 @@
-import aiohttp
 import http
 
-from src.config.config import SupplierAuthResources
+import aiohttp
 
-from ..states.states import SupplierClienState
+from src.config.config import SupplierAuthResources
 from ..parsers.state import ClientStateHtmlParser
+from ..states.states import SupplierClienState
 from ..utils.request.login import get_login_body
 
 

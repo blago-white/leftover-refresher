@@ -2,7 +2,6 @@ import datetime
 
 from src.config.settings import SupplierWebSettings
 from src.services.states.states import SupplierClienState
-
 from ._common import get_state_body_fields
 
 

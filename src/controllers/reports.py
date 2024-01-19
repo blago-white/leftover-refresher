@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
 
 from src.reports.utils import difference
-from .base import Controller
 from ._dataclasses import ReportBuildersPair
+from .base import Controller
 
 
 class BaseArticlesReportsController(Controller, metaclass=ABCMeta):

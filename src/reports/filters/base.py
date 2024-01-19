@@ -1,6 +1,6 @@
-from ..transfer.report import Report
-
 from abc import ABCMeta, abstractmethod
+
+from ..transfer.report import Report
 
 
 class BaseReportFilter(metaclass=ABCMeta):

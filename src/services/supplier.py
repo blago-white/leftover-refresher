@@ -2,7 +2,6 @@ from aiohttp import ClientSession
 
 from src.config.config import SupplierAuthResources
 from src.config.settings import SupplierWebSettings
-
 from .base import BaseReadOnlyWebService
 from .mixins import sessions
 from .utils.request import leftover
