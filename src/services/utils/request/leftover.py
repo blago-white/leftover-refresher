@@ -8,11 +8,7 @@ from ._common import get_state_body_fields
 def get_leftover_form_body(state: SupplierClienState) -> dict:
     body = dict.fromkeys(SupplierSettings.LEFTOVERS_FORM_FIELDS)
 
-    body.update(
-        get_state_body_fields(state=state) | _get_leftovers_form_fields()
-    )
-
-    return body
+    return body | get_state_body_fields(state=state) | _get_leftovers_form_fields()
 
 
 def _get_leftovers_form_fields() -> dict:
@@ -25,7 +21,6 @@ def _get_leftovers_form_fields() -> dict:
 
 
 def _get_today() -> str:
-    return datetime.datetime.today(
-        ).strftime(
+    return datetime.datetime.today().strftime(
         format=SupplierSettings.DATE_FORMAT
     )

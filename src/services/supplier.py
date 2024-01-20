@@ -1,3 +1,5 @@
+import logging
+
 from aiohttp import ClientSession
 
 from src.config.config import SupplierCredentals
@@ -15,10 +17,13 @@ class SupplierLeftoversWebService(sessions.SupplierAuthWebServiceMixin, BaseRead
     async def get(self) -> bytes:
         if not self._authenticated:
             await self._authenticate()
+            logging.debug("Supplier Auth Request Completed")
 
         await self._set_state(state_url=SupplierSettings.LEFTOVER_URL)
 
         leftover_request_body = leftover.get_leftover_form_body(state=self._state)
+
+        logging.debug("Supplier Get Request")
 
         async with self._session.post(url=SupplierSettings.LEFTOVER_URL, data=leftover_request_body) as response:
             return await response.content.read()

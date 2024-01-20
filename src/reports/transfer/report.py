@@ -7,6 +7,9 @@ from .article import Article
 class Report:
     articles: list[Article] = field(default_factory=list)
 
+    def __bool__(self):
+        return bool(self.articles)
+
     def add(self, article: Article):
         self.articles.append(article)
 

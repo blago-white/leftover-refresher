@@ -1,3 +1,7 @@
+import pathlib
+import logging
+
+
 class SupplierSettings:
     VIEWSTATE_FIELD_NAME = "__VIEWSTATE"
     GENERATOR_FIELD_NAME = "__VIEWSTATEGENERATOR"
@@ -87,3 +91,13 @@ class DealerSettings:
     WAREHOUSE_PARAM = "warehouse_id"
 
     WAREHOUSE_ID = 1020001281723000
+
+
+class ConfigSettings:
+    CONFIG_FILE_PATH = pathlib.Path(__file__).resolve().parent / "config.ini"
+
+
+class LoggingSettings:
+    LOG_FILE_PATH = pathlib.Path(__file__).resolve().parent.parent / "debug.log"
+    DEFAULT_LOGGING_MODE = logging.DEBUG
+    LOG_FORMAT = "%(asctime)s / %(pathname)s / %(message)s"
