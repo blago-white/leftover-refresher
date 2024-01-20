@@ -5,8 +5,6 @@ from src.reports.builders.json import TrackedArticlesJSONReportBuilder
 from src.reports.filters.base import BaseReportFilter
 from src.reports.transfer.report import Report
 from src.services.dealer import DeallerWebService
-
-from ._utils import report_to_update_report
 from .base import BaseRepository
 
 
@@ -35,8 +33,6 @@ class DealerReportsRepository(BaseRepository):
     async def save(self, report: Report) -> None:
         logging.debug("Call Dealer Repository Save")
 
-        await self._service.post(
-            update_report=report_to_update_report(report=report)
-        )
+        await self._service.post(report=report)
 
         logging.debug("Dealer Save Request Completed")

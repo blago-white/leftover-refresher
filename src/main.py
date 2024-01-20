@@ -1,18 +1,15 @@
 import asyncio
+import logging
+import pathlib
 import time
 import aiohttp
-import pathlib
-import logging
 
 from src.config import config
-
 from src.controllers.dataclasses_ import RepositoriesPair
 from src.controllers.managers.reports import ReportsPairManager
 from src.controllers.reports import ArticlesLeftoversController
-
 from src.repositories.dealer import DealerReportsRepository
 from src.repositories.supplier import SupplierReportsRepository
-
 from src.services.dealer import DeallerWebService
 from src.services.supplier import SupplierLeftoversWebService
 

@@ -4,9 +4,9 @@ from aiohttp.client import ClientSession
 
 from src.config.config import DealerCredentals
 from src.config.settings import DealerSettings
+from src.reports.transfer.report import Report
 from src.services.base import BaseWebService
 from src.services.mixins.api import DealerApiCredentalsMixin, DealerApiMixin
-from src.services.transfer import UpdateReport
 
 
 class DeallerWebService(DealerApiCredentalsMixin, DealerApiMixin, BaseWebService):
@@ -26,11 +26,11 @@ class DeallerWebService(DealerApiCredentalsMixin, DealerApiMixin, BaseWebService
         ) as response:
             return await response.json()
 
-    async def post(self, update_report: UpdateReport) -> dict:
+    async def post(self, report: Report) -> dict:
         logging.debug("Dealer Save Request")
 
         async with self._session.post(
             url=DealerSettings.STOCKS_UPDATE_API_URL,
-            data=self._get_update_leftovers_json(update_report=update_report)
+            data=self._get_update_leftovers_json(report=report)
         ) as response:
             return await response.json()
