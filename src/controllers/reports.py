@@ -1,3 +1,4 @@
+import logging
 from abc import ABCMeta, abstractmethod
 
 from src.reports.transfer.report import Report, ReportsPair
@@ -30,4 +31,5 @@ class ArticlesLeftoversController(BaseArticlesController):
         self._reports_pair = await self._repositories_manager.get_all()
 
     async def _synchronize(self) -> None:
-        await self._repositories_pair.slave.save(self._reports_pair.difference)
+        if self._reports_pair.difference:
+            await self._repositories_pair.slave.save(self._reports_pair.difference)
