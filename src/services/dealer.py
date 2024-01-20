@@ -1,14 +1,10 @@
-import asyncio
-
-import aiohttp.client
 from aiohttp.client import ClientSession
 
 from src.config.config import DealerCredentals
 from src.config.settings import DealerSettings
 from src.services.base import BaseWebService
 from src.services.mixins.api import DealerApiCredentalsMixin, DealerApiMixin
-
-from src.services.transfer import UpdateReport, ArticleLeftoversUpdateForm
+from src.services.transfer import UpdateReport
 
 
 class DeallerWebService(DealerApiCredentalsMixin, DealerApiMixin, BaseWebService):

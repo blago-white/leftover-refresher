@@ -1,6 +1,6 @@
 from aiohttp import ClientSession
 
-from src.config.config import SupplierAuthResources
+from src.config.config import SupplierCredentals
 from src.config.settings import SupplierSettings
 from .base import BaseReadOnlyWebService
 from .mixins import sessions
@@ -8,8 +8,8 @@ from .utils.request import leftover
 
 
 class SupplierLeftoversWebService(sessions.SupplierAuthWebServiceMixin, BaseReadOnlyWebService):
-    def __init__(self, auth_sources: SupplierAuthResources, aoihttp_session: ClientSession):
-        self._auth_resources = auth_sources
+    def __init__(self, auth_credentals: SupplierCredentals, aoihttp_session: ClientSession):
+        self._auth_credentals = auth_credentals
         super().__init__(aoihttp_session=aoihttp_session)
 
     async def get(self) -> bytes:

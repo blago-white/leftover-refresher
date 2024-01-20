@@ -4,7 +4,6 @@ from aiohttp.client import ClientSession
 
 from src.config.config import DealerCredentals
 from src.config.settings import DealerSettings
-
 from ..transfer import UpdateReport
 
 

@@ -1,6 +1,5 @@
-from src.config.settings import DealerSettings
-from src.reports.transfer.report import Report
 from src.reports.transfer.article import Article
+from src.reports.transfer.report import Report
 from src.services.transfer import UpdateReport, ArticleLeftoversUpdateForm
 
 

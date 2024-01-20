@@ -16,6 +16,7 @@ class SupplierSettings:
     REPORT_FORMAT = "XLS"
 
     LEFTOVER_URL = "https://lk.promet.ru/Sklad/Sklad"
+    LOGIN_URL = "https://lk.promet.ru/default/"
 
     DATE_FORMAT = "%d.%m.%Y"
 

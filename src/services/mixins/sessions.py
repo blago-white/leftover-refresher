@@ -2,7 +2,8 @@ import http
 
 import aiohttp
 
-from src.config.config import SupplierAuthResources
+from src.config.config import SupplierCredentals
+from src.config.settings import SupplierSettings
 from ..parsers.state import ClientStateHtmlParser
 from ..states.states import SupplierClienState
 from ..utils.request.login import get_login_body
@@ -22,18 +23,18 @@ class SupplierStatesWebServiceMixin:
 
 
 class SupplierAuthWebServiceMixin(SupplierStatesWebServiceMixin):
-    _auth_resources: SupplierAuthResources = None
+    _auth_credentals: SupplierCredentals = None
     __authenticated = False
 
     async def _authenticate(self):
-        await self._set_state(state_url=self._auth_resources.loginurl)
+        await self._set_state(state_url=SupplierSettings.LOGIN_URL)
 
         body = get_login_body(
             state=self._state,
-            credentals=self._auth_resources.credentals
+            credentals=self._auth_credentals
         )
 
-        async with self._session.post(url=self._auth_resources.loginurl, data=body) as response:
+        async with self._session.post(url=SupplierSettings.LOGIN_URL, data=body) as response:
             if response.status == http.HTTPStatus.OK:
                 self.__authenticated = True
 
