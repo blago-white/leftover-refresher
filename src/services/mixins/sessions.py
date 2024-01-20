@@ -1,5 +1,5 @@
 import http
-
+import logging
 import aiohttp
 
 from src.config.config import SupplierCredentals
@@ -14,8 +14,12 @@ class SupplierStatesWebServiceMixin:
     __client_state: SupplierClienState = None
 
     async def _set_state(self, state_url: str) -> SupplierClienState:
+        logging.debug("Supplier Session Get Request")
+
         async with self._session.get(state_url) as response:
             self.__client_state = ClientStateHtmlParser(html=await response.text()).state
+
+        logging.debug("Supplier Session Get Request Completed")
 
     @property
     def _state(self) -> SupplierClienState | None:
@@ -34,9 +38,13 @@ class SupplierAuthWebServiceMixin(SupplierStatesWebServiceMixin):
             credentals=self._auth_credentals
         )
 
+        logging.debug("Supplier Auth Request")
+
         async with self._session.post(url=SupplierSettings.LOGIN_URL, data=body) as response:
             if response.status == http.HTTPStatus.OK:
                 self.__authenticated = True
+
+        logging.debug("Supplier Auth Request Completed")
 
     @property
     def _authenticated(self) -> bool:

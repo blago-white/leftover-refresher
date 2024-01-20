@@ -2,6 +2,7 @@ import asyncio
 import time
 import aiohttp
 import pathlib
+import logging
 
 from src.config import config
 
@@ -39,13 +40,23 @@ async def main(credentals: config.Credentals) -> None:
         await controller.synchronize()
 
 
+def _get_config():
+    return config.load_config(
+        path=pathlib.Path(__file__).resolve().parent / "config/config.ini"
+    )
+
+
 if __name__ == '__main__':
-    config_path = pathlib.Path(__file__).resolve().parent / "config/config.ini"
+    logging.basicConfig(
+        format="%(asctime)s / %(pathname)s / %(message)s",
+        level=logging.DEBUG,
+        filename="refresher.log",
+        filemode="w")
 
     start = time.time()
 
     asyncio.run(main(
-        credentals=config.load_config(path=config_path)
+        credentals=_get_config()
     ))
 
     print(time.time() - start)
