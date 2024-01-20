@@ -3,17 +3,17 @@ import logging
 from src.reports.adapters.xls import XlsReportAdapter
 from src.reports.builders.xls import TrackedArticlesXlsReportBuilder
 from src.reports.filters.tracked import TrackedAtriclesFilter
-from src.services.supplier import SupplierLeftoversWebService
+from src.services.supplier import SupplierWebService
 from .base import BaseReadOnlyRepository
 
 
 class SupplierReportsRepository(BaseReadOnlyRepository):
-    _service: SupplierLeftoversWebService
+    _service: SupplierWebService
     _builder: TrackedArticlesXlsReportBuilder
     _filter: TrackedAtriclesFilter
     _adapter: XlsReportAdapter
 
-    def __init__(self, service: SupplierLeftoversWebService,
+    def __init__(self, service: SupplierWebService,
                  builder: TrackedArticlesXlsReportBuilder = TrackedArticlesXlsReportBuilder,
                  reports_filter: TrackedAtriclesFilter = TrackedAtriclesFilter,
                  adapter: XlsReportAdapter = XlsReportAdapter):

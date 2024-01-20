@@ -9,10 +9,11 @@ from .mixins import sessions
 from .utils.request import leftover
 
 
-class SupplierLeftoversWebService(sessions.SupplierAuthWebServiceMixin, BaseReadOnlyWebService):
+class SupplierWebService(sessions.SupplierAuthWebServiceMixin, BaseReadOnlyWebService):
+    auth_credentals: SupplierCredentals
+
     def __init__(self, auth_credentals: SupplierCredentals, aoihttp_session: ClientSession):
-        self._auth_credentals = auth_credentals
-        super().__init__(aoihttp_session=aoihttp_session)
+        super().__init__(auth_credentals=auth_credentals, aoihttp_session=aoihttp_session)
 
     async def get(self) -> bytes:
         if not self._authenticated:

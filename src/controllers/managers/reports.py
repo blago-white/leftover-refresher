@@ -1,12 +1,12 @@
-import logging
 import asyncio
+import logging
 
 from src.reports.transfer.report import ReportsPair
 from .base import BaseRepositoriesManager
 from ..dataclasses_ import RepositoriesPair
 
 
-class ReportsPairManager(BaseRepositoriesManager):
+class RepositoriesPairManager(BaseRepositoriesManager):
     def __init__(self, repositories: RepositoriesPair):
         self._repositories_pair = repositories
 

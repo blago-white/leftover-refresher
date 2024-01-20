@@ -10,10 +10,10 @@ from src.services.mixins.api import DealerApiCredentalsMixin, DealerApiMixin
 
 
 class DeallerWebService(DealerApiCredentalsMixin, DealerApiMixin, BaseWebService):
-    def __init__(self, auth_credentals: DealerCredentals, aoihttp_session: ClientSession):
-        self._auth_credentals = auth_credentals
+    auth_credentals: DealerCredentals
 
-        super().__init__(aoihttp_session=aoihttp_session)
+    def __init__(self, auth_credentals: DealerCredentals, aoihttp_session: ClientSession):
+        super().__init__(auth_credentals=auth_credentals, aoihttp_session=aoihttp_session)
 
         self._add_auth_headers()
 

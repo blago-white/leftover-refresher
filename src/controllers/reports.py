@@ -1,10 +1,10 @@
-import logging
 from abc import ABCMeta, abstractmethod
 
 from src.reports.transfer.report import Report, ReportsPair
 from .base import Controller
 from .dataclasses_ import RepositoriesPair
 from .managers.base import BaseRepositoriesManager
+from .managers.reports import RepositoriesPairManager
 
 
 class BaseArticlesController(Controller, metaclass=ABCMeta):
@@ -19,7 +19,7 @@ class ArticlesLeftoversController(BaseArticlesController):
     _reports_pair: ReportsPair = ReportsPair(slave_report=Report(), master_report=Report())
 
     def __init__(self, repositories: RepositoriesPair,
-                 repositories_manager_class: BaseRepositoriesManager):
+                 repositories_manager_class: BaseRepositoriesManager = RepositoriesPairManager):
         self._repositories_pair = repositories
         self._repositories_manager: BaseRepositoriesManager = repositories_manager_class(self._repositories_pair)
 
