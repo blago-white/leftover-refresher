@@ -1,3 +1,4 @@
+import logging
 from abc import ABCMeta, abstractmethod
 
 from src.reports.transfer.report import Report, ReportsPair
@@ -16,12 +17,18 @@ class BaseArticlesController(Controller, metaclass=ABCMeta):
 
 
 class ArticlesLeftoversController(BaseArticlesController):
-    _reports_pair: ReportsPair = ReportsPair(slave_report=Report(), master_report=Report())
+    _reports_pair: ReportsPair = ReportsPair(
+        slave_report=Report(),
+        master_report=Report()
+    )
 
-    def __init__(self, repositories: RepositoriesPair,
-                 repositories_manager_class: BaseRepositoriesManager = RepositoriesPairManager):
+    def __init__(
+            self, repositories: RepositoriesPair,
+            repositories_manager_class: BaseRepositoriesManager = RepositoriesPairManager):
         self._repositories_pair = repositories
-        self._repositories_manager: BaseRepositoriesManager = repositories_manager_class(self._repositories_pair)
+        self._repositories_manager: BaseRepositoriesManager = repositories_manager_class(
+            self._repositories_pair
+        )
 
     async def synchronize(self) -> None:
         await self._refresh_reports()
@@ -31,5 +38,9 @@ class ArticlesLeftoversController(BaseArticlesController):
         self._reports_pair = await self._repositories_manager.get_all()
 
     async def _synchronize(self) -> None:
-        if self._reports_pair.difference:
-            await self._repositories_pair.slave.save(self._reports_pair.difference)
+        reports_diff = self._reports_pair.difference
+
+        logging.debug(f"Reports Difference: {reports_diff}")
+
+        if reports_diff:
+            await self._repositories_pair.slave.save(reports_diff)

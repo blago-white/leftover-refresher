@@ -10,9 +10,8 @@ from src.reports.transfer.report import Report
 class DealerApiMixin:
     @staticmethod
     def _get_leftovers_info_json() -> str:
-        return json.dumps({
-            DealerSettings.SKU_BODY_PARAM: DealerSettings.TRACKED_SKUS
-        })
+        return json.dumps(
+            {"filter": {}, "limit": DealerSettings.ARTICLES_LIMIT_PER_REQUEST})
 
     @staticmethod
     def _get_update_leftovers_json(report: Report) -> str:
@@ -28,6 +27,19 @@ class DealerApiMixin:
             stocks.append(update_article_dict)
 
         return json.dumps({DealerSettings.STOCKS_PARAM: stocks})
+
+    @staticmethod
+    def _get_all_articles_json() -> str:
+        return json.dumps({
+            "filter": {},
+            "limit": 1000
+        })
+
+    @staticmethod
+    def _get_articles_sku_json(offers: list[str]) -> str:
+        return json.dumps({
+            "offer_id": offers
+        })
 
 
 class DealerApiCredentalsMixin:

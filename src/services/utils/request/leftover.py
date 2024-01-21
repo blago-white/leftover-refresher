@@ -8,7 +8,8 @@ from ._common import get_state_body_fields
 def get_leftover_form_body(state: SupplierClienState) -> dict:
     body = dict.fromkeys(SupplierSettings.LEFTOVERS_FORM_FIELDS)
 
-    return body | get_state_body_fields(state=state) | _get_leftovers_form_fields()
+    return body | get_state_body_fields(
+        state=state) | _get_leftovers_form_fields()
 
 
 def _get_leftovers_form_fields() -> dict:

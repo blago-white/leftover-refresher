@@ -12,10 +12,11 @@ class _BaseRepository(metaclass=ABCMeta):
     _filter: BaseReportFilter
     _adapter: BaseReportAdapter
 
-    def __init__(self, service: BaseWebService,
-                 builder: BaseReportBuilder,
-                 reports_filter: BaseReportFilter,
-                 adapter: BaseReportAdapter):
+    def __init__(
+            self, service: BaseWebService,
+            builder: BaseReportBuilder,
+            reports_filter: BaseReportFilter,
+            adapter: BaseReportAdapter):
         self._service = service
         self._builder = builder
         self._filter = reports_filter

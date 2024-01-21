@@ -1,5 +1,4 @@
 from typing import Iterable
-
 from openpyxl.worksheet.worksheet import Worksheet
 
 from src.config.settings import SupplierSettings
@@ -17,5 +16,5 @@ def rows_to_report(rows: Iterable[tuple[str]]) -> report.Report:
     return report.Report(articles=list(map(row_to_article, rows)))
 
 
-def extract_values_from_sheet(sheet: Worksheet) -> report.Report:
+def extract_values_from_sheet(sheet: Worksheet) -> list[tuple]:
     return sheet.values

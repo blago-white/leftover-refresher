@@ -13,11 +13,13 @@ class SupplierReportsRepository(BaseReadOnlyRepository):
     _filter: TrackedAtriclesFilter
     _adapter: XlsReportAdapter
 
-    def __init__(self, service: SupplierWebService,
-                 builder: TrackedArticlesXlsReportBuilder = TrackedArticlesXlsReportBuilder,
-                 reports_filter: TrackedAtriclesFilter = TrackedAtriclesFilter,
-                 adapter: XlsReportAdapter = XlsReportAdapter):
-        super().__init__(service=service, builder=builder, reports_filter=reports_filter, adapter=adapter)
+    def __init__(
+            self, service: SupplierWebService,
+            builder: TrackedArticlesXlsReportBuilder = TrackedArticlesXlsReportBuilder,
+            reports_filter: TrackedAtriclesFilter = TrackedAtriclesFilter,
+            adapter: XlsReportAdapter = XlsReportAdapter):
+        super().__init__(service=service, builder=builder,
+                         reports_filter=reports_filter, adapter=adapter)
 
     async def get_all(self):
         logging.debug("Call Supplier Repository Get All")

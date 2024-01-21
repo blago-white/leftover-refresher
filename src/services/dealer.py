@@ -9,11 +9,15 @@ from src.services.base import BaseWebService
 from src.services.mixins.api import DealerApiCredentalsMixin, DealerApiMixin
 
 
-class DeallerWebService(DealerApiCredentalsMixin, DealerApiMixin, BaseWebService):
+class DeallerWebService(DealerApiCredentalsMixin, DealerApiMixin,
+                        BaseWebService):
     auth_credentals: DealerCredentals
 
-    def __init__(self, auth_credentals: DealerCredentals, aoihttp_session: ClientSession):
-        super().__init__(auth_credentals=auth_credentals, aoihttp_session=aoihttp_session)
+    def __init__(
+            self, auth_credentals: DealerCredentals,
+            aoihttp_session: ClientSession):
+        super().__init__(auth_credentals=auth_credentals,
+                         aoihttp_session=aoihttp_session)
 
         self._add_auth_headers()
 
@@ -21,8 +25,8 @@ class DeallerWebService(DealerApiCredentalsMixin, DealerApiMixin, BaseWebService
         logging.debug("Dealer Get Request")
 
         async with self._session.post(
-            url=DealerSettings.STOCKS_API_URL,
-            data=self._get_leftovers_info_json(),
+                url=DealerSettings.STOCKS_API_URL,
+                data=self._get_leftovers_info_json(),
         ) as response:
             return await response.json()
 
@@ -30,7 +34,7 @@ class DeallerWebService(DealerApiCredentalsMixin, DealerApiMixin, BaseWebService
         logging.debug("Dealer Save Request")
 
         async with self._session.post(
-            url=DealerSettings.STOCKS_UPDATE_API_URL,
-            data=self._get_update_leftovers_json(report=report)
+                url=DealerSettings.STOCKS_UPDATE_API_URL,
+                data=self._get_update_leftovers_json(report=report)
         ) as response:
             return await response.json()

@@ -25,6 +25,6 @@ class ReportsPair:
             articles=[articles[0]
                       for articles in zip(self.master_report.articles,
                                           self.slave_report.articles,
-                                          strict=True)
+                                          strict=False)
                       if articles[0] != articles[1]]
         )

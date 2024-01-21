@@ -26,7 +26,8 @@ class ClientStateHtmlParser(BaseStateParser):
         return self._get_hidden_value(SupplierSettings.GENERATOR_FIELD_NAME)
 
     def _get_eventvalidation(self):
-        return self._get_hidden_value(SupplierSettings.EVENTVALIDATION_FIELD_NAME)
+        return self._get_hidden_value(
+            SupplierSettings.EVENTVALIDATION_FIELD_NAME)
 
     def _get_hidden_value(self, tag_id: str):
         return bs4.BeautifulSoup(

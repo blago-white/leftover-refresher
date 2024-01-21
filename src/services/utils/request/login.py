@@ -5,12 +5,14 @@ from src.services.states.states import SupplierClienState
 from ._common import get_state_body_fields
 
 
-def get_login_body(state: SupplierClienState,
-                   credentals: SupplierCredentals) -> dict:
+def get_login_body(
+        state: SupplierClienState,
+        credentals: SupplierCredentals) -> dict:
     body = dict.fromkeys(SupplierSettings.LOGIN_FORM_FIELDS)
 
     body.update(
-        get_state_body_fields(state=state) | _get_login_credentals_body_fields(credentals=credentals)
+        get_state_body_fields(state=state) | _get_login_credentals_body_fields(
+            credentals=credentals)
     )
 
     return body

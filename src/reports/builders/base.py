@@ -10,7 +10,9 @@ class BaseReportBuilder(metaclass=ABCMeta):
     _adapter: BaseReportAdapter
     _filter: BaseReportFilter
 
-    def __init__(self, data: bytes, filter_: BaseReportFilter, adapter: BaseReportAdapter):
+    def __init__(
+            self, data: bytes, filter_: BaseReportFilter,
+            adapter: BaseReportAdapter):
         self._data = data
         self._adapter = adapter
         self._filter = filter_
@@ -22,7 +24,7 @@ class BaseReportBuilder(metaclass=ABCMeta):
 
     def _get_filtered(self, report: Report) -> Report:
         if self._filter:
-            return self._filter(report).result
+            return self._filter(report)
 
         return report
 

@@ -18,7 +18,8 @@ class SupplierStatesWebServiceMixin:
         logging.debug("Supplier Session Get Request")
 
         async with self._session.get(state_url) as response:
-            self.__client_state = ClientStateHtmlParser(html=await response.text()).state
+            self.__client_state = ClientStateHtmlParser(
+                html=await response.text()).state
 
         logging.debug("Supplier Session Get Request Completed")
 
@@ -41,7 +42,8 @@ class SupplierAuthWebServiceMixin(SupplierStatesWebServiceMixin):
 
         logging.debug("Supplier Auth Request")
 
-        async with self._session.post(url=SupplierSettings.LOGIN_URL, data=body) as response:
+        async with self._session.post(url=SupplierSettings.LOGIN_URL,
+                                      data=body) as response:
             if response.status == http.HTTPStatus.OK:
                 self.__authenticated = True
 

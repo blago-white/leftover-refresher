@@ -7,7 +7,8 @@ class BaseAuthWebService(metaclass=ABCMeta):
     _auth_credentals: object
     _session: ClientSession
 
-    def __init__(self, auth_credentals: object, aoihttp_session: ClientSession):
+    def __init__(
+            self, auth_credentals: object, aoihttp_session: ClientSession):
         self._auth_credentals = auth_credentals
         self._session = aoihttp_session
 
@@ -22,4 +23,3 @@ class BaseWebService(BaseReadOnlyWebService, metaclass=ABCMeta):
     @abstractmethod
     async def post(self, *args, **kwargs) -> bytes:
         pass
-

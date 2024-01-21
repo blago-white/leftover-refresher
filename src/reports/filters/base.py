@@ -4,7 +4,6 @@ from ..transfer.report import Report
 
 
 class BaseReportFilter(metaclass=ABCMeta):
-    @property
     @abstractmethod
-    def result(self) -> Report:
+    def __call__(self, report: Report) -> Report:
         pass

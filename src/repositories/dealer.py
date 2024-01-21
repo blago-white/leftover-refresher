@@ -13,11 +13,13 @@ class DealerReportsRepository(BaseRepository):
     _builder: TrackedArticlesJSONReportBuilder
     _adapter: JsonReportAdapter
 
-    def __init__(self, service: DeallerWebService,
-                 builder: TrackedArticlesJSONReportBuilder = TrackedArticlesJSONReportBuilder,
-                 reports_filter: BaseReportFilter = None,
-                 adapter: JsonReportAdapter = JsonReportAdapter):
-        super().__init__(service=service, builder=builder, reports_filter=reports_filter, adapter=adapter)
+    def __init__(
+            self, service: DeallerWebService,
+            builder: TrackedArticlesJSONReportBuilder = TrackedArticlesJSONReportBuilder,
+            reports_filter: BaseReportFilter = None,
+            adapter: JsonReportAdapter = JsonReportAdapter):
+        super().__init__(service=service, builder=builder,
+                         reports_filter=reports_filter, adapter=adapter)
 
     async def get_all(self) -> Report:
         logging.debug("Call Dealer Repository Get All")
@@ -32,6 +34,8 @@ class DealerReportsRepository(BaseRepository):
 
     async def save(self, report: Report) -> None:
         logging.debug("Call Dealer Repository Save")
+
+        logging.debug(f"Saved Supplier Report {report}")
 
         await self._service.post(report=report)
 
