@@ -4,6 +4,7 @@ import pathlib
 from src.reports.transfer.filters.fields import leftover
 from src.reports.transfer.filters.leftover import LeftoverValueFilter
 
+
 _CONFIG_DIR = pathlib.Path(__file__).resolve().parent
 
 
