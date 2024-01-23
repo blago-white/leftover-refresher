@@ -14,9 +14,13 @@ from src.tracked.articles import TrackedArticlesListManager
 
 
 async def _refresh_tracked_articles(service: DeallerWebService) -> list[str]:
+    logging.debug("Start refreshing tracked articles ids")
+
     manager = TrackedArticlesListManager(dealer_service=service)
 
     await manager.refresh()
+
+    logging.debug("End refreshing tracked articles ids")
 
 
 async def main(credentals: config.Credentals) -> None:

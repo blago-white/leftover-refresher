@@ -13,6 +13,10 @@ class Report:
     def add(self, article: Article):
         self.articles.append(article)
 
+    @property
+    def sorted(self) -> list[Article]:
+        return sorted(self.articles, key=lambda article: article.article)
+
 
 @dataclass
 class ReportsPair:
@@ -23,8 +27,8 @@ class ReportsPair:
     def difference(self) -> Report:
         return Report(
             articles=[articles[0]
-                      for articles in zip(self.master_report.articles,
-                                          self.slave_report.articles,
-                                          strict=False)
+                      for articles in zip(self.master_report.sorted,
+                                          self.slave_report.sorted,
+                                          strict=True)
                       if articles[0] != articles[1]]
         )

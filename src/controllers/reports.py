@@ -30,9 +30,13 @@ class ArticlesLeftoversController(BaseArticlesController):
             self._repositories_pair
         )
 
+        logging.debug("Controller initialized")
+
     async def synchronize(self) -> None:
         await self._refresh_reports()
         await self._synchronize()
+
+        logging.debug("Leftovers refreshed")
 
     async def _refresh_reports(self) -> None:
         self._reports_pair = await self._repositories_manager.get_all()
