@@ -1,0 +1,13 @@
+.idea
+.coverage
+.gitignore
+.git
+.env
+
+.venv
+
+LICENSE
+README.md
+
+**/*.pyc
+**/__pycache__
