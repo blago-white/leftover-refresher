@@ -31,6 +31,6 @@ def _add_job(tab: CronTab):
 
 
 if __name__ == "__main__":
-    tab = CronTab(user=_utils.get_username())
-
-    _add_job(tab=tab)
+    _add_job(
+        tab=CronTab(user=_utils.get_username())
+    )

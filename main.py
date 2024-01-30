@@ -1,53 +1,32 @@
+#!/usr/bin/env python
+
+import sys
 import asyncio
 import logging
-import aiohttp
 
+from src import run_refreshing, refresh_tracked_articles_list
 from src.config import config, settings
-from src.controllers.dataclasses_ import RepositoriesPair
-from src.controllers.reports import ArticlesLeftoversController
-from src.reports.filters.tracked import TrackedAtriclesFilter
-from src.repositories.dealer import DealerReportsRepository
-from src.repositories.supplier import SupplierReportsRepository
-from src.services.dealer import DeallerWebService
-from src.services.supplier import SupplierWebService
-from src.tracked.articles import TrackedArticlesListManager
 
 
-async def _refresh_tracked_articles(service: DeallerWebService) -> list[str]:
-    logging.debug("Start refreshing tracked articles ids")
+def main():
+    if (len(sys.argv) < 3
+            or not sys.argv[1] == "refresh"
+            or sys.argv[2] == "help"):
+        return
 
-    manager = TrackedArticlesListManager(dealer_service=service)
+    if sys.argv[2] == "--stocks":
+        asyncio.run(run_refreshing(
+            credentals=config.load_config(
+                path=settings.ConfigSettings.CONFIG_FILE_PATH
+            )
+        ))
 
-    await manager.refresh()
-
-    logging.debug("End refreshing tracked articles ids")
-
-
-async def main(credentals: config.Credentals) -> None:
-    async with aiohttp.ClientSession() as session:
-        supplier_service = SupplierWebService(
-            auth_credentals=credentals.supplier,
-            aoihttp_session=session,
-        )
-
-        dealer_service = DeallerWebService(
-            auth_credentals=credentals.dealer,
-            aoihttp_session=session
-        )
-
-        await _refresh_tracked_articles(service=dealer_service)
-
-        controller = ArticlesLeftoversController(
-            repositories=RepositoriesPair(
-                master=SupplierReportsRepository(
-                    service=supplier_service,
-                    reports_filter=TrackedAtriclesFilter()
-                ),
-                slave=DealerReportsRepository(service=dealer_service)
-            ),
-        )
-
-        await controller.synchronize()
+    elif sys.argv[2] == "--articles":
+        asyncio.run(refresh_tracked_articles_list(
+            dealer_credentals=config.load_config(
+                path=settings.ConfigSettings.CONFIG_FILE_PATH
+            ).dealer
+        ))
 
 
 if __name__ == '__main__':
@@ -58,8 +37,4 @@ if __name__ == '__main__':
         filemode="w"
     )
 
-    asyncio.run(main(
-        credentals=config.load_config(
-            path=settings.ConfigSettings.CONFIG_FILE_PATH
-        )
-    ))
+    main()
