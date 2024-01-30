@@ -3,52 +3,49 @@
 import sys
 import asyncio
 import logging
+import argparse
 
 from src import run_refreshing, refresh_tracked_articles_list
 from src.config import config, settings
 
 
-_HELP_STRING = """
-Follow creator - https://github.com/blago-white
+def get_args_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="Leftovers Refresher",
+        description="""
+        This is a script for synchronizing product balances on different platforms, 
+        saving hundreds of hours spent on synchronizing data between platforms
+        """,
+        epilog="Follow creator - https://github.com/blago-white"
+    )
 
-This is a script for synchronizing product balances on different platforms, 
-saving hundreds of hours spent on synchronizing data between platforms
+    parser.add_argument("refresh",
+                        help="Refresh data, stocks or list of tracked articles" 
+                             "depending on the options")
+    parser.add_argument("help")
+    parser.add_argument("--articles",
+                        help="Refresh only list of tracked articles")
+    parser.add_argument("--stocks",
+                        help="Refresh stocks of tracked articles")
 
-Example of run script -----------------------------------
-
-./main.py refresh --articles
-
-Arguments -----------------------------------------------
-
-help           Show this help info
-
-refresh        Refresh data, stocks or list of tracked articles 
-               depending on the options
-
-Options -------------------------------------------------
-
-
---articles     Refresh only list of tracked articles
---stocks       Refresh stocks of tracked articles
-
-"""
+    return parser
 
 
 def main():
-    if (len(sys.argv) < 2) or (sys.argv[1] == "help"):
-        print(_HELP_STRING)
+    args = get_args_parser().parse_args()
 
-    if not sys.argv[1] == "refresh":
+    if args.help or not args.refresh:
+        get_args_parser().print_help()
         return
 
-    elif sys.argv[2] == "--stocks":
+    if args.stocks:
         asyncio.run(run_refreshing(
             credentals=config.load_config(
                 path=settings.ConfigSettings.CONFIG_FILE_PATH
             )
         ))
 
-    elif sys.argv[2] == "--articles":
+    elif args.articles:
         asyncio.run(refresh_tracked_articles_list(
             dealer_credentals=config.load_config(
                 path=settings.ConfigSettings.CONFIG_FILE_PATH
