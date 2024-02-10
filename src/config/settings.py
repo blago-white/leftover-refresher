@@ -110,3 +110,7 @@ class LoggingSettings:
     LOG_FILE_PATH = _CONFIG_DIR.parent / "debug.log"
     DEFAULT_LOGGING_MODE = logging.DEBUG
     LOG_FORMAT = "%(asctime)s / %(pathname)s / %(message)s"
+
+
+class LoopSettings:
+    STOCKS_REFRESH_TIMEOUT_SEC = 10 * 60

@@ -5,9 +5,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apk update
 
-RUN adduser -D -u 1000 refresher
-
-USER refresher
+RUN adduser -D -u 1000 refresher --home /home/refresher/
 
 WORKDIR /home/refresher/
 
@@ -15,6 +13,11 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-EXPOSE 8000
-
 COPY . .
+
+RUN chown -R refresher:refresher /home/refresher/
+RUN chmod -R u+x /home/refresher/
+
+USER refresher
+
+CMD ["python", "loop.py"]

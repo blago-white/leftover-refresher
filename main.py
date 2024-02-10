@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import sys
 import asyncio
 import logging
 import argparse
@@ -22,21 +21,20 @@ def get_args_parser() -> argparse.ArgumentParser:
     parser.add_argument("refresh",
                         help="Refresh data, stocks or list of tracked articles" 
                              "depending on the options")
-    parser.add_argument("help")
     parser.add_argument("--articles",
-                        help="Refresh only list of tracked articles")
+                        help="Refresh only list of tracked articles",
+                        action='store_true',
+                        required=False)
     parser.add_argument("--stocks",
-                        help="Refresh stocks of tracked articles")
+                        help="Refresh stocks of tracked articles",
+                        action='store_true',
+                        required=False)
 
     return parser
 
 
 def main():
     args = get_args_parser().parse_args()
-
-    if args.help or not args.refresh:
-        get_args_parser().print_help()
-        return
 
     if args.stocks:
         asyncio.run(run_refreshing(

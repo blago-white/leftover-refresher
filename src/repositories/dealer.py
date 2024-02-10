@@ -37,6 +37,6 @@ class DealerReportsRepository(BaseRepository):
 
         logging.debug(f"Saved Supplier Report {report}")
 
-        print(await self._service.post(report=report))
+        await self._service.post(report=report)
 
         logging.debug("Dealer Save Request Completed")
