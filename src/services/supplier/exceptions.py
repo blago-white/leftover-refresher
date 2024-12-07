@@ -1,0 +1,2 @@
+class ReportDownloadingTimeoutException(BaseException):
+    pass

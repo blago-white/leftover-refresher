@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 from src.reports.adapters.base import BaseReportAdapter
 from src.reports.builders.base import BaseReportBuilder
 from src.reports.filters.base import BaseReportFilter
-from src.services.base import BaseWebService
+from src.services.dealer.base import BaseWebService
 
 
 class _BaseRepository(metaclass=ABCMeta):

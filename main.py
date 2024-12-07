@@ -9,7 +9,7 @@ from src.reports.filters.tracked import TrackedAtriclesFilter
 from src.repositories.dealer import DealerReportsRepository
 from src.repositories.supplier import SupplierReportsRepository
 from src.services.dealer import DeallerWebService
-from src.services.supplier import SupplierWebService
+from src.services.supplier import SupplierXLSReportService
 from src.tracked.articles import TrackedArticlesListManager
 
 
@@ -25,9 +25,8 @@ async def _refresh_tracked_articles(service: DeallerWebService) -> list[str]:
 
 async def main(credentals: config.Credentals) -> None:
     async with aiohttp.ClientSession() as session:
-        supplier_service = SupplierWebService(
-            auth_credentals=credentals.supplier,
-            aoihttp_session=session,
+        supplier_service = SupplierXLSReportService(
+            credentals=credentals.supplier
         )
 
         dealer_service = DeallerWebService(

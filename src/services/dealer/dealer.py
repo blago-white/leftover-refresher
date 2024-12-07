@@ -5,8 +5,8 @@ from aiohttp.client import ClientSession
 from src.config.config import DealerCredentals
 from src.config.settings import DealerSettings
 from src.reports.transfer.report import Report
-from src.services.base import BaseWebService
-from src.services.mixins.api import DealerApiCredentalsMixin, DealerApiMixin
+from src.services.dealer.base import BaseWebService
+from src.services.dealer.mixins.api import DealerApiCredentalsMixin, DealerApiMixin
 
 
 class DeallerWebService(DealerApiCredentalsMixin, DealerApiMixin,

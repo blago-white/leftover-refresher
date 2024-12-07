@@ -5,9 +5,11 @@ from src.reports.transfer.report import Report
 
 def json_to_report(json: dict[str, list[dict[str, str | int]]]) -> Report:
     return Report(
-        [json_to_article(article)
-         for article in json[DealerSettings.STOCKS_INFO_DICT_KEY][DealerSettings.STOCKS_ITEMS_DICT_KEY]
-         ]
+        [json_to_article(article) for article in json[
+            DealerSettings.STOCKS_INFO_DICT_KEY
+        ][
+             DealerSettings.STOCKS_ITEMS_DICT_KEY
+        ]]
     )
 
 

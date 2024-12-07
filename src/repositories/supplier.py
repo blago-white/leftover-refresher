@@ -3,18 +3,18 @@ import logging
 from src.reports.adapters.xls import XlsReportAdapter
 from src.reports.builders.xls import TrackedArticlesXlsReportBuilder
 from src.reports.filters.tracked import TrackedAtriclesFilter
-from src.services.supplier import SupplierWebService
+from src.services.supplier import SupplierXLSReportService
 from .base import BaseReadOnlyRepository
 
 
 class SupplierReportsRepository(BaseReadOnlyRepository):
-    _service: SupplierWebService
+    _service: SupplierXLSReportService
     _builder: TrackedArticlesXlsReportBuilder
     _filter: TrackedAtriclesFilter
     _adapter: XlsReportAdapter
 
     def __init__(
-            self, service: SupplierWebService,
+            self, service: SupplierXLSReportService,
             builder: TrackedArticlesXlsReportBuilder = TrackedArticlesXlsReportBuilder,
             reports_filter: TrackedAtriclesFilter = TrackedAtriclesFilter,
             adapter: XlsReportAdapter = XlsReportAdapter):
@@ -24,7 +24,7 @@ class SupplierReportsRepository(BaseReadOnlyRepository):
     async def get_all(self):
         logging.debug("Call Supplier Repository Get All")
 
-        result = await self._service.get()
+        result = self._service.get()
 
         logging.debug("Supplier Get Request Completed")
 
